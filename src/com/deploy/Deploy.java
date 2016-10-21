@@ -35,7 +35,7 @@ public class Deploy {
 		driver=new FirefoxDriver();
 		try {
 			
-			 in=new FileInputStream("/data.properties");
+			 in=new FileInputStream("/tmp/data.properties");
 			 prop=new Properties();
 			 prop.load(in);
 			 
