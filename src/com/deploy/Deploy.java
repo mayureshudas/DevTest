@@ -56,13 +56,13 @@ public class Deploy {
 		String xpath2="//div[@class='main-content']//div[@class='widget-body']//div[@class='ui-grid-row ng-scope']/div/div/a[contains(text(),'"+image+"')]/../../div[@id='"+div.getAttribute("id")+"']/span/a";
 		WebElement deploy=driver.findElement(By.xpath(xpath2));
 		deploy.click();
-		//String xpath3="//div[@class='main-content']//div[@class='widget-body']//div[@class='ui-grid-row ng-scope']/div/div/a[contains(text(),'google2')]/../../div[@id='"+div.getAttribute("id")+"']/span/a/following-sibling::ul//a[contains(text(),'Deploy')]";
-		//driver.findElement(By.xpath(xpath3)).click();
-		Actions action=new Actions(driver);
-		Point point=deploy.getLocation();
+		String xpath3="//div[@class='main-content']//div[@class='widget-body']//div[@class='ui-grid-row ng-scope ui-grid-row-selected']/div/div/a[contains(text(),'"+image+"')]/../../div[@id='"+div.getAttribute("id")+"']//a[contains(text(),'Deploy')]";
+		driver.findElement(By.xpath(xpath3)).click();
+		//Actions action=new Actions(driver);
+		//Point point=deploy.getLocation();
 		//System.out.println("X coordinate: "+point.getX());
 		//System.out.println("Y coordinate: "+point.getY());
-		action.moveByOffset(12,24).click().build().perform();
+		//action.moveByOffset(12,24).click().build().perform();
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
@@ -70,6 +70,7 @@ public class Deploy {
 			e.printStackTrace();
 		}
 		driver.findElement(By.xpath("//div[@class='modal-content']//button[contains(text(),'Deploy')]")).click();
+		System.out.println("Service: "+image+" is deployed successfully");
 		//action.moveToElement(deploy, 5, 10).click().build().perform();
 		/*for(WebElement service:services){
 			System.out.println(service.getAttribute("id"));
