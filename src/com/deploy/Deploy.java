@@ -19,9 +19,9 @@ public class Deploy {
 	static WebDriver driver;
 	@BeforeSuite
 	public static void setup(){
-		System.setProperty("webdriver.chrome.driver", "D:\\Users\\maudas\\Downloads\\chromedriver_win32(1)\\chromedriver.exe");
-		driver=new ChromeDriver();
-		//driver=new FirefoxDriver();
+		//System.setProperty("webdriver.chrome.driver", "D:\\Users\\maudas\\Downloads\\chromedriver_win32(1)\\chromedriver.exe");
+		//driver=new ChromeDriver();
+		driver=new FirefoxDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 		driver.get("http://52.66.16.188:1507");
