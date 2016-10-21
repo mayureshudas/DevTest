@@ -1,15 +1,22 @@
 package com.deploy;
 
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+import java.io.IOException;
+
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeSuite;
@@ -17,14 +24,32 @@ import org.testng.annotations.Test;
 
 public class Deploy {
 	static WebDriver driver;
+	static FileInputStream in;
+	static String url;
+	static String image;
+	static Properties prop;
 	@BeforeSuite
 	public static void setup(){
 		//System.setProperty("webdriver.chrome.driver", "D:\\Users\\maudas\\Downloads\\chromedriver_win32(1)\\chromedriver.exe");
 		//driver=new ChromeDriver();
 		driver=new FirefoxDriver();
+		try {
+			
+			 in=new FileInputStream("/data.properties");
+			 prop=new Properties();
+			 prop.load(in);
+			 
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		url=prop.getProperty("url");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-		driver.get("http://52.66.16.188:1507");
+		driver.get(url);
 	}
 	
 	@Test
@@ -32,10 +57,13 @@ public class Deploy {
 		driver.findElement(By.xpath("//form//input[@id='username']")).sendKeys("admin");
 		driver.findElement(By.xpath("//form//input[@id='password']")).sendKeys("admin");
 		driver.findElement(By.xpath("//form//button[@class='login-btn btn btn-block ng-binding']")).click();
+		System.out.println("Login is done");
 		driver.findElement(By.xpath("//div[@class='sidebar']//ul[@class='nav nav-list']/li[@id='nav.menu.manage']/a")).click();
+		
 		WebDriverWait wait=new WebDriverWait(driver, 30);
 		WebElement manageVservices=driver.findElement(By.xpath("//div[@class='sidebar']//ul[@class='nav nav-list']/li[@id='nav.menu.manage']/ul/li[@id='nav.menu.manage.virtualservices']/a/span"));
 		wait.until(ExpectedConditions.elementToBeClickable(manageVservices));
+		System.out.println("Manage Services is clicked");
 		if(manageVservices.isDisplayed()){
 			manageVservices.click();
 		}
@@ -48,7 +76,7 @@ public class Deploy {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String image="google2";
+		 image=prop.getProperty("image");
 		String xpath1="//div[@class='main-content']//div[@class='widget-body']//div[@class='ui-grid-row ng-scope']/div/div/a[contains(text(),'"+image+"')]/../../div";
 		List <WebElement> services=driver.findElements(By.xpath(xpath1));
 		//System.out.println(services.size());
@@ -58,6 +86,7 @@ public class Deploy {
 		deploy.click();
 		String xpath3="//div[@class='main-content']//div[@class='widget-body']//div[@class='ui-grid-row ng-scope ui-grid-row-selected']/div/div/a[contains(text(),'"+image+"')]/../../div[@id='"+div.getAttribute("id")+"']//a[contains(text(),'Deploy')]";
 		driver.findElement(By.xpath(xpath3)).click();
+		System.out.println("Deploy is clicked");
 		//Actions action=new Actions(driver);
 		//Point point=deploy.getLocation();
 		//System.out.println("X coordinate: "+point.getX());
