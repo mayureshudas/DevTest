@@ -59,8 +59,11 @@ public class Deploy {
 		driver.findElement(By.xpath("//form//button[@class='login-btn btn btn-block ng-binding']")).click();
                 WebDriverWait wait=new WebDriverWait(driver, 60);
 		System.out.println("Login is done");
-		WebElement sideBar=driver.findElement(By.xpath("//div[@class='sidebar']//ul[@class='nav nav-list']/li[@id='nav.menu.manage']/a")).click();
+		WebElement sideBar=driver.findElement(By.xpath("//div[@class='sidebar']//ul[@class='nav nav-list']/li[@id='nav.menu.manage']/a"));
 		wait.until(ExpectedConditions.elementToBeClickable(sideBar));
+if(sideBar.isDisplayed()){
+sideBar.click();
+}
 		
 		WebElement manageVservices=driver.findElement(By.xpath("//div[@class='sidebar']//ul[@class='nav nav-list']/li[@id='nav.menu.manage']/ul/li[@id='nav.menu.manage.virtualservices']/a/span"));
 		wait.until(ExpectedConditions.elementToBeClickable(manageVservices));
