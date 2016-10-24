@@ -48,7 +48,7 @@ public class Deploy {
 		}
 		url=prop.getProperty("url");
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(180, TimeUnit.SECONDS);
 		driver.get(url);
 	}
 	
@@ -57,7 +57,7 @@ public class Deploy {
 		driver.findElement(By.xpath("//form//input[@id='username']")).sendKeys("admin");
 		driver.findElement(By.xpath("//form//input[@id='password']")).sendKeys("admin");
 		driver.findElement(By.xpath("//form//button[@class='login-btn btn btn-block ng-binding']")).click();
-                WebDriverWait wait=new WebDriverWait(driver, 60);
+                WebDriverWait wait=new WebDriverWait(driver, 180);
 		System.out.println("Login is done");
 		WebElement sideBar=driver.findElement(By.xpath("//div[@class='sidebar']//ul[@class='nav nav-list']/li[@id='nav.menu.manage']/a"));
 		wait.until(ExpectedConditions.elementToBeClickable(sideBar));
